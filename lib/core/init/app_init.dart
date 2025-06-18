@@ -4,6 +4,7 @@ import 'package:auvnet/features/home/data/models/shortcut_model.dart';
 import 'package:flutter/widgets.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:dotenv/dotenv.dart' as dotenv;
 
 import '../../features/auth/data/models/user_model.dart';
 import '../di/service_locator.dart';
@@ -13,7 +14,7 @@ import '../../../firebase_options.dart';
 /// This includes Firebase, Hive local storage, and dependency injection setup.
 class AppInit {
   /// Initializes all necessary components before the app runs.
-  /// 
+  ///
   /// The initialization process includes:
   /// 1. Flutter engine initialization
   /// 2. Firebase setup for backend services
@@ -29,9 +30,11 @@ class AppInit {
       options: DefaultFirebaseOptions.currentPlatform,
     );
 
+    await dotenv.load(fileName: ".env");
+
     // Initialize Hive for local data persistence
     await Hive.initFlutter();
-    
+
     // Register type adapters for Hive boxes
     Hive.registerAdapter(UserModelAdapter());
     Hive.registerAdapter(RestaurantModelAdapter());
