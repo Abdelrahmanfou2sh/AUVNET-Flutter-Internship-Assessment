@@ -12,8 +12,13 @@ import 'package:auvnet/features/home/domain/entities/shortcut.dart';
 import 'package:auvnet/features/home/domain/repositories/home_repository.dart';
 import 'package:flutter/foundation.dart';
 
+/// Implementation of the HomeRepository interface that handles data operations for the home feature.
+/// This class manages both remote (Firestore) and local (Hive) data sources for restaurants, services, and shortcuts.
 class HomeRepositoryImpl implements HomeRepository {
+  /// Remote data source for fetching data from Firestore
   final HomeRemoteDataSource remoteDataSource;
+  
+  /// Local data source for caching data using Hive
   final HomeLocalDataSource localDataSource;
 
   HomeRepositoryImpl({
@@ -31,6 +36,8 @@ class HomeRepositoryImpl implements HomeRepository {
   //     return Left(ServerFailure(message: e.toString(), code: 'SERVER_ERROR'));
   //   }
   // }
+  /// Fetches restaurants from the remote data source and caches them locally.
+  /// Returns a Right with the list of restaurants if successful, or a Left with a ServerFailure if an error occurs.
   @override
   Future<Either<Failure, List<Restaurant>>> getRestaurants() async {
     try {
@@ -47,6 +54,8 @@ class HomeRepositoryImpl implements HomeRepository {
     }
   }
 
+  /// Fetches services from the remote data source and caches them locally.
+  /// Returns a Right with the list of services if successful, or a Left with a ServerFailure if an error occurs.
   @override
   Future<Either<Failure, List<Service>>> getServices() async {
     try {
@@ -58,6 +67,8 @@ class HomeRepositoryImpl implements HomeRepository {
     }
   }
 
+  /// Fetches shortcuts from the remote data source and caches them locally.
+  /// Returns a Right with the list of shortcuts if successful, or a Left with a ServerFailure if an error occurs.
   @override
   Future<Either<Failure, List<Shortcut>>> getShortcuts() async {
     try {
@@ -69,6 +80,8 @@ class HomeRepositoryImpl implements HomeRepository {
     }
   }
 
+  /// Retrieves cached restaurants from the local data source.
+  /// Returns a Right with the list of restaurants if successful, or a Left with a CacheFailure if an error occurs.
   @override
   Future<Either<Failure, List<Restaurant>>> getCachedRestaurants() async {
     try {
@@ -84,6 +97,8 @@ class HomeRepositoryImpl implements HomeRepository {
     }
   }
 
+  /// Retrieves cached services from the local data source.
+  /// Returns a Right with the list of services if successful, or a Left with a CacheFailure if an error occurs.
   @override
   Future<Either<Failure, List<Service>>> getCachedServices() async {
     try {
@@ -99,6 +114,8 @@ class HomeRepositoryImpl implements HomeRepository {
     }
   }
 
+  /// Retrieves cached shortcuts from the local data source.
+  /// Returns a Right with the list of shortcuts if successful, or a Left with a CacheFailure if an error occurs.
   @override
   Future<Either<Failure, List<Shortcut>>> getCachedShortcuts() async {
     try {
@@ -114,6 +131,8 @@ class HomeRepositoryImpl implements HomeRepository {
     }
   }
 
+  /// Caches the provided list of services in the local data source.
+  /// Returns a Right with void if successful, or a Left with a ServerFailure if an error occurs.
   @override
   Future<Either<Failure, void>> cacheServices(List<Service> services) async {
     try {
@@ -125,6 +144,8 @@ class HomeRepositoryImpl implements HomeRepository {
     }
   }
 
+  /// Caches the provided list of shortcuts in the local data source.
+  /// Returns a Right with void if successful, or a Left with a ServerFailure if an error occurs.
   @override
   Future<Either<Failure, void>> cacheShortcuts(List<Shortcut> shortcuts) async {
     try {
@@ -136,6 +157,8 @@ class HomeRepositoryImpl implements HomeRepository {
     }
   }
 
+  /// Caches the provided list of restaurants in the local data source.
+  /// Returns a Right with void if successful, or a Left with a ServerFailure if an error occurs.
   @override
   Future<Either<Failure, void>> cacheRestaurants(
     List<Restaurant> restaurants,

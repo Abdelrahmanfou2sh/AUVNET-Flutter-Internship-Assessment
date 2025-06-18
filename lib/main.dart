@@ -8,11 +8,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'features/home/presentation/bloc/home_bloc.dart';
 
+/// Entry point of the application.
+/// Initializes necessary configurations and runs the app.
 void main() async {
   await AppInit.init();
   runApp(const MyApp());
 }
 
+/// Root widget of the application.
+/// Configures global providers, screen utilities, and theme settings.
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

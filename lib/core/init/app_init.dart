@@ -9,25 +9,36 @@ import '../../features/auth/data/models/user_model.dart';
 import '../di/service_locator.dart';
 import '../../../firebase_options.dart';
 
+/// Handles the initialization of core application components.
+/// This includes Firebase, Hive local storage, and dependency injection setup.
 class AppInit {
-  /// Initializes all necessary tools before the app runs.
+  /// Initializes all necessary components before the app runs.
+  /// 
+  /// The initialization process includes:
+  /// 1. Flutter engine initialization
+  /// 2. Firebase setup for backend services
+  /// 3. Hive local storage configuration
+  /// 4. Registration of data model adapters
+  /// 5. Dependency injection setup
   static Future<void> init() async {
     // Ensure Flutter engine is initialized before any async calls
     WidgetsFlutterBinding.ensureInitialized();
 
-    // Initialize Firebase
+    // Initialize Firebase with platform-specific configurations
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
 
-    // Initialize Hive
+    // Initialize Hive for local data persistence
     await Hive.initFlutter();
+    
+    // Register type adapters for Hive boxes
     Hive.registerAdapter(UserModelAdapter());
     Hive.registerAdapter(RestaurantModelAdapter());
     Hive.registerAdapter(ServiceModelAdapter());
     Hive.registerAdapter(ShortcutModelAdapter());
 
-    // Initialize Dependency Injection
+    // Setup dependency injection using GetIt
     await initServiceLocator();
   }
 }
